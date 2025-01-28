@@ -30,3 +30,5 @@ node_modules
 .ruby-version
 
 *local-codes
+
+.DS_Store
