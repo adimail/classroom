@@ -2,11 +2,11 @@
     <h1 align="center">Classroom by adimail</h1>
 </p>
 
-### Get Involved
+# what is this?
 
 Static site with a collection of notes from [my](https://adimail.github.io/) BTech.
 
-## Run locally
+# Run locally
 
 Before you begin, ensure you have the following installed:
 - Ruby (version 3.0.0 or higher)
@@ -14,7 +14,7 @@ Before you begin, ensure you have the following installed:
 - Bundler
 - Git
 
-#### macOS
+## macOS
 ```bash
 brew install rbenv
 rbenv init
@@ -22,7 +22,7 @@ rbenv install 3.2.0
 rbenv global 3.2.0
 ```
 
-#### Ubuntu/Debian
+## Ubuntu/Debian
 ```bash
 sudo apt-get update
 sudo apt-get install -y build-essential libssl-dev libreadline-dev zlib1g-dev
@@ -31,23 +31,23 @@ rbenv install 3.2.0
 rbenv global 3.2.0
 ```
 
-#### Windows
+## Windows
 Download and install Ruby using the [RubyInstaller](https://rubyinstaller.org/).
 
-### 4. Install Bundler
+## Install Bundler
 
 After installing Ruby, install Bundler:
 ```bash
 gem install bundler
 ```
 
-### 5. Install Project Dependencies
+## Install Project Dependencies
 
 ```bash
 bundle install
 ```
 
-### 6. Run the Project
+## Run the Project
 
 ```bash
 bundle exec jekyll serve

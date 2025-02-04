@@ -1,7 +1,6 @@
 ---
 layout: default
 title: AI
-nav_order: 3
 has_children: true
 permalink: /docs/AI
 ---

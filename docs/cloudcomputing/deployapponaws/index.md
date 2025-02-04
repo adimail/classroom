@@ -2,7 +2,6 @@
 layout: default
 title: Deploy an app on AWS
 parent: Cloud Computing
-nav_order: 1
 has_children: true
 ---
 
