@@ -6,7 +6,7 @@ parent: Machine Learning
 
 # Data Quality Assurance and Governance
 
-All our decisions in today's world of Big Data are data-driven—even when we are heading to college or any other place. Navigation apps help us find the best route to reach a particular destination. They achieve this based on data that has been fed into them. Recognizing the fact that our decisions are data-driven, it is crucial to ensure that we have high-quality data. The research paper *"Everyone Wants to Do the Model Work, Not the Data Work"* indicated that data quality often plays down the challenge in AI systems. [[1]](https://dl.acm.org/doi/abs/10.1145/3411764.3445518)
+All our decisions in today's world of Big Data are data-driven—even when we are heading to college or any other place. Navigation apps help us find the best route to reach a particular destination. They achieve this based on data that has been fed into them. Recognizing the fact that our decisions are data-driven, it is crucial to ensure that we have high-quality data. The research paper *"Everyone Wants to Do the Model Work, Not the Data Work"* indicated that data quality often plays down the challenge in AI systems.
 
 ![alt text](../../../assets/images/ml/data/1.jpeg)
 

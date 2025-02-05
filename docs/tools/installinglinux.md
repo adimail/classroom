@@ -33,38 +33,134 @@ Here's a step-by-step guide to installing Linux properly, followed by a table of
 
 ---
 
-### **Steps to Install Linux Properly**
-1. **Choose a Linux Distribution**
-   - Research distros based on your needs (e.g., Ubuntu for beginners, Arch for customization).
-   - Download the ISO file from the official website.
+## **Steps to Install Linux Properly (Updated Detailed Guide)**
 
-2. **Backup Your Data**
-   - Save important files to an external drive or cloud storage.
+---
 
-3. **Create a Bootable USB Drive**
-   - Use tools like **Rufus** (Windows), **Balena Etcher** (macOS/Linux), or `dd` (Linux CLI).
-   - Ensure the USB is formatted correctly (FAT32 for UEFI).
+### **1. Choose a Linux Distribution**
+- Research distros based on your needs:
+  - **Beginner-Friendly:** Ubuntu, Linux Mint, Fedora
+  - **Advanced/Minimalist:** Arch Linux, Debian, Manjaro
+  - **Lightweight:** Lubuntu, Puppy Linux
+- Download the **ISO file** from the official website of your chosen distribution.
 
-4. **Configure BIOS/UEFI**
-   - Restart your PC and enter BIOS/UEFI (usually via `F2`, `F12`, `Delete`, or `Esc`).
-   - Disable **Secure Boot** (if required by the distro).
-   - Set boot priority to USB.
+---
 
-5. **Boot into the Live Environment**
-   - Select "Try Linux" to test hardware compatibility (Wi-Fi, graphics, etc.).
+### **2. Backup Your Data**
+- **Save important files** to an external hard drive, cloud storage, or another partition.
+- **Back up your Windows activation key** (important if you plan to reinstall Windows later):
+  - Open **Command Prompt (cmd) as Administrator** and run:
+    ```powershell
+    wmic path softwarelicensingservice get OA3xOriginalProductKey
+    ```
+  - Save this key in a safe place.
 
-6. **Start the Installation**
-   - Choose language, keyboard layout, and timezone.
-   - **Partitioning**:
-     - **Automatic**: Let the installer handle partitioning (recommended for beginners).
-     - **Manual**:
-       - Create a **root** (`/`) partition (min. 20GB).
-       - Optional: **Swap** partition (equal to RAM size for hibernation).
-       - Optional: **Home** (`/home`) partition (for personal files).
-     - Ensure the bootloader (GRUB) is installed on the correct drive (e.g., `/dev/sda`).
+---
 
-7. **Complete Installation**
-   - Remove the USB when prompted and reboot.
+### **3. Check and Disable BitLocker (If Enabled)**
+ **Why?** If BitLocker is enabled on your Windows drive, the Linux installer may not detect it properly, leading to issues with disk partitioning.
+
+1. **Check if BitLocker is enabled**:
+   - Open **Command Prompt (cmd) as Administrator** and run:
+     ```powershell
+     manage-bde -status
+     ```
+   - If BitLocker is **enabled**, proceed to the next step to disable it.
+
+2. **Disable BitLocker**:
+   - Run the following command to **temporarily disable** BitLocker protection:
+     ```powershell
+     manage-bde -protectors -disable C:
+     ```
+   - If the above command doesn’t work, **fully decrypt the drive**:
+     ```powershell
+     manage-bde -off C:
+     ```
+   - Wait for the decryption process to complete before proceeding.
+
+---
+
+### **4. Create a Bootable USB Drive**
+- Use one of the following tools:
+  - **Windows:** [Rufus](https://rufus.ie/)
+  - **Mac/Linux:** [Balena Etcher](https://www.balena.io/etcher/)
+  - **Linux Terminal (`dd` command)**:
+    ```bash
+    sudo dd if=/path/to/linux.iso of=/dev/sdX bs=4M status=progress
+    sync
+    ```
+    (Replace `/dev/sdX` with your USB drive’s actual identifier)
+
+- **Ensure the USB is formatted correctly:**
+  - **FAT32** (for best UEFI compatibility)
+  - **MBR partition scheme** (for BIOS) or **GPT** (for UEFI)
+
+---
+
+### **5. Configure BIOS/UEFI**
+1. Restart your PC and enter **BIOS/UEFI** by pressing `F2`, `F12`, `DEL`, or `ESC` (varies by manufacturer).
+2. **Disable Secure Boot** (if required by your Linux distro).
+3. Enable **UEFI mode** (for newer systems) or **Legacy mode** (for older BIOS-based systems).
+4. Set **boot priority** to USB.
+5. **Save and exit BIOS/UEFI** (usually by pressing `F10`).
+
+---
+
+### **6. Boot into the Live Environment**
+1. Restart the PC with the **bootable USB plugged in**.
+2. If you see a boot menu, select your **USB drive**.
+3. Choose **"Try Linux"** to load a live session before installation.
+4. Test hardware compatibility (Wi-Fi, sound, graphics, etc.).
+
+---
+
+## **6. Start the Installation (Detailed Instructions)**
+
+### **A. Choose Language, Keyboard Layout, and Timezone**
+- Select your **preferred language**.
+- Choose your **keyboard layout** (e.g., US, UK, etc.).
+- Set the **correct timezone**.
+
+### **B. Partitioning: Choose an Installation Type**
+
+🔴 **Important:** If you're keeping Windows (dual boot), ensure you have free space for Linux. You may need to shrink a partition first.
+
+1. **Automatic Partitioning (Recommended for Beginners)**
+   - Choose **"Erase disk and install Linux"** **(⚠ WARNING: This deletes all data, including Windows!)**
+   - The installer will create necessary partitions automatically.
+   - If using a laptop, enable **"Encrypt the installation for security"** (optional).
+
+2. **Manual Partitioning (Advanced Users & Dual Boot)**
+   - Choose **"Something Else"** to manually create partitions.
+   - If dual-booting, **DO NOT DELETE** the Windows partitions. Instead, shrink the existing Windows partition from **Windows Disk Management** before installation.
+
+#### **Creating Partitions Manually**
+
+| Partition | Mount Point | Type | Size | Notes |
+|-----------|------------|------|------|------|
+| **Root** | `/` | ext4 | **20GB+** | Required for Linux OS |
+| **Swap** | - | swap | **= RAM size** (or 2GB min) | Needed for hibernation |
+| **Home** | `/home` | ext4 | **Optional (Rest of Disk Space)** | Stores personal files |
+| **EFI (For UEFI)** | `/boot/efi` | FAT32 | **100MB - 500MB** | Required for UEFI boot |
+| **Boot (For BIOS)** | `/boot` | ext4 | **500MB - 1GB** | Stores GRUB bootloader |
+
+- **Ensure bootloader is installed on the correct drive** (usually `/dev/sda`).
+
+### **C. User Account and Authentication**
+- Enter **your name, username, and password**.
+- Choose whether to **require a password at login** or **enable auto-login**.
+
+### **D. Start Installation**
+- Double-check your partition settings.
+- Click **"Install Now"** and confirm.
+
+---
+
+## **7. Complete Installation**
+- Once installation finishes:
+  - **Remove the USB drive** when prompted.
+  - Click **Restart Now**.
+- If dual-booting, you'll see the **GRUB boot menu**—choose between Windows and Linux.
 
 ---
 
